@@ -1,17 +1,17 @@
 class Winetop < Formula
   desc "htop for Wine prefixes"
   homepage "https://github.com/akovari/winetop"
-  version "0.2.0"
+  version "0.2.1"
   license "MIT"
 
   on_linux do
     on_intel do
       url "https://github.com/akovari/winetop/releases/download/v#{version}/winetop-v#{version}-x86_64-unknown-linux-gnu.tar.xz"
-      sha256 "2e8e9347d689c92592934c4cba29cb5f56a0558b03221407156ef3338d1d15dd"
+      sha256 "31af0880ef68e0702bb4f6fb6275665f618627af2599395f422dcbab8b0b8831"
     end
     on_arm do
       url "https://github.com/akovari/winetop/releases/download/v#{version}/winetop-v#{version}-aarch64-unknown-linux-gnu.tar.xz"
-      sha256 "7b211486f0331746607a277c1f5fc9c63f1e7222fa56f0647a9d0f25e46dcece"
+      sha256 "6287eda36703a8e6c9ee8c836cc40756bdf581d7634eebccd2186e440da61dcd"
     end
   end
 
