@@ -2,12 +2,12 @@
 
 class Yona < Formula
   desc "Yona programming language compiler targeting LLVM"
-  homepage "https://github.com/yona-lang/yonac-llvm"
-  version "0.1.3"
-  url "https://github.com/yona-lang/yonac-llvm/archive/refs/tags/v#{version}.tar.gz"
-  sha256 "c56a11e350a75e5e3f64b009dd3e84197702aab2278b2377b639c40b629288b3"
+  homepage "https://github.com/yona-lang/yona"
+  version "0.1.6"
+  url "https://github.com/yona-lang/yona/archive/refs/tags/v#{version}.tar.gz"
+  sha256 "cc1ffa649d5cfbb357729b5bd7359acbd4329622123d5800a4de802c8e287d90"
   license "GPL-3.0-only"
-  head "https://github.com/yona-lang/yonac-llvm.git", branch: "master"
+  head "https://github.com/yona-lang/yona.git", branch: "master"
 
   livecheck do
     url :stable
@@ -63,7 +63,7 @@ class Yona < Formula
     system "cmake", "--build", "build"
 
     lib.install "build/#{shared_library("yona_lib")}"
-    libexec.install "build/yonac", "build/yona"
+    libexec.install "build/yonac", "build/yona", "build/yona-repl", "build/yls"
 
     sysroot = lib/"yona"
     (sysroot/"lib").mkpath
@@ -83,11 +83,12 @@ class Yona < Formula
     }
     (bin/"yonac").write_env_script libexec/"yonac", env
     (bin/"yona").write_env_script libexec/"yona", env
+    (bin/"yls").write_env_script libexec/"yls", env
   end
 
   def caveats
     <<~EOS
-      LLVM is keg-only. The `yonac` and `yona` wrappers add Homebrew LLVM and LLD
+      LLVM is keg-only. The `yonac`, `yona`, and `yls` wrappers add Homebrew LLVM and LLD
       to PATH and set YONA_HOME / YONAC_CC so compiling programs works out of the box.
 
       Optional Vulkan GPU runtime:
@@ -97,6 +98,6 @@ class Yona < Formula
 
   test do
     assert_match(/\d+\.\d+\.\d+/, shell_output("#{bin}/yonac --version"))
-    assert_equal "42\n", shell_output("#{bin}/yonac -e '42'")
+    assert_equal "42\n", shell_output("#{bin}/yona -e '42'")
   end
 end
